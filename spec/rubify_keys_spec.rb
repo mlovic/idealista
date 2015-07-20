@@ -26,3 +26,21 @@ RSpec.describe CoreExtensions::RubifyKeys, '#rubify_keys!' do
     # TODO sperate test for nesting?
   end
 end
+
+RSpec.describe CoreExtensions::RubifyKeys, '#unrubify_keys!' do
+  it 'changes all camelcase keys to snakecase' do
+    hash = {"camel_case" => "camelCase", 
+            "hyphenated_case" => "hyphenated-case",
+            "hash_key" => {"nested_case" => "nestedCase"},
+            "arr_key" => [{"array_case" => "arrayCase"}, 
+                         {"array-Case" => "array-Case"}]
+    }
+    hash.unrubify_keys!
+    expect(hash).to eq Hash["camelCase" => "camelCase", 
+                            "hyphenatedCase" => "hyphenated-case",
+                            "hashKey" => {"nestedCase" => "nestedCase"},
+                            "arrKey" => [{"arrayCase" => "arrayCase"}, 
+                                         {"arrayCase" => "array-Case"}]
+                           ]
+  end
+end

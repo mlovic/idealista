@@ -21,7 +21,7 @@ module Idealista
     end
 
     def search(query)
-      # TODO camelcase keys
+      query.unrubify_keys!
       #validate_args(query)
       Hash.include ::CoreExtensions::RubifyKeys
       query["apikey"] = @key
