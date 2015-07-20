@@ -28,15 +28,6 @@ RSpec.describe Idealista::Client, "#search" do
   let(:query) { sample_query }
   let(:client) { Idealista::Client.new(Secret::API_KEY) }
 
-  #it 'calls Idealista correctly' do
-    #pending
-    #VCR.use_cassette("sample") do
-      #properties = client.search(sample_query)
-      #expect(properties).to have_key("element_list")
-      #expect(properties["element_list"].size).to eq 5
-    #end
-  #end
-
   it 'returns array of Properties' do
     VCR.use_cassette("sample") do
       properties = client.search(sample_query)

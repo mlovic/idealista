@@ -35,10 +35,6 @@ module Helpers
     # TODO unrubify?
   end
 
-  #def sample_query_with_key(camel_case
-    #sample_query.merge({"apikey" => Secret::API_KEY})
-  #end
-
   def idealista_response
     VCR.use_cassette("sample") do
       client = Client.new
