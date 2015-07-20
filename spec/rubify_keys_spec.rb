@@ -1,4 +1,4 @@
-require_relative '../lib/core_extensions/rubify_keys' 
+require 'core_extensions/rubify_keys' 
 
 RSpec.describe CoreExtensions::RubifyKeys, '#rubify_keys!' do
 

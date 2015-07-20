@@ -1,6 +1,6 @@
-require_relative '../lib/idealista/client' # TODO fix load path. Add lib in
-require_relative '../lib/idealista/property' 
-require_relative '../lib/core_extensions/rubify_keys' 
+require 'idealista/client'
+require 'idealista/property'
+require 'core_extensions/rubify_keys'
 # TODO require ony necessary files or all lib/idelista.rb?
 
 RSpec.describe Idealista::Client, ".new" do
@@ -59,6 +59,10 @@ RSpec.describe Idealista::Client, "#search" do
       end
     end
   end
+end
+
+RSpec.describe Idealista::Client, "#search_bedrooms" do
+  it 'works without bedroom attribute in input query'
 end
 
 RSpec.describe Idealista::Client, "#configure" do

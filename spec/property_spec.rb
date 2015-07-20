@@ -1,5 +1,5 @@
 require_relative 'helpers'
-require_relative '../lib/idealista/property' 
+require 'idealista/property' 
 require 'vcr'
 require 'webmock'
 

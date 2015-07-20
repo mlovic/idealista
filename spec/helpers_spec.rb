@@ -1,5 +1,5 @@
 require_relative 'helpers'
-require_relative '../lib/idealista/client' 
+require 'idealista/client' 
 
 RSpec.describe Helpers::Client, '#get_raw_idealista_data' do
   it 'returns a hash' do

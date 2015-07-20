@@ -1,6 +1,6 @@
 require 'httparty'
-require_relative '../lib/core_extensions/rubify_keys'
-require_relative '../lib/idealista/query'
+require 'core_extensions/rubify_keys'
+require 'idealista/query'
 
 module Helpers
   Hash.include ::CoreExtensions::RubifyKeys

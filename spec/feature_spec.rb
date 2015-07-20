@@ -1,4 +1,4 @@
-require_relative '../lib/idealista' 
+require 'idealista' 
 #require_relative '../secret' # TODO fix this
 
 RSpec.describe "simulating client" do

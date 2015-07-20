@@ -1,4 +1,4 @@
-require_relative '../lib/idealista/query' 
+require 'idealista/query' 
 
 RSpec.describe Idealista::Query, '#remove_attr' do
   let(:query) { {"one" => 1, "two" => 2}.extend Idealista::Query }
