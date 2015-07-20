@@ -1,4 +1,4 @@
-require_relative '../lib/idealista/client' # TODO fix load path. Add lib in spchelpe
+require_relative '../lib/idealista/client' # TODO fix load path. Add lib in
 require_relative '../lib/idealista/property' 
 require_relative '../lib/core_extensions/rubify_keys' 
 # TODO require ony necessary files or all lib/idelista.rb?
@@ -45,7 +45,22 @@ RSpec.describe Idealista::Client, "#search" do
     end
   end
 
-  it 'validates arguments'
+  context 'arguments are invalid' do
+    before(:each) { @invalid_query = sample_query }
+    # TODO write helper method to dry up
+    
+    it 'raises argument error without property_type' do
+      test_search_method_with_missing_attribute(client, :property_type)
+    end
+    it 'raises argument error without operation' do
+      test_search_method_with_missing_attribute(client, :operation)
+    end
+    it 'raises argument error without location attribute' do
+      test_search_method_with_missing_attribute(client, :center)
+    end
+    it 'raises error when more than one location attribute is passed'
+    # TODO not sure best way
+  end
 end
 
 RSpec.describe Idealista::Client, "#configure" do
