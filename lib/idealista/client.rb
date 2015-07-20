@@ -9,8 +9,8 @@ module Idealista
   class Client
 
     include HTTParty
+    Hash.include ::CoreExtensions::RubifyKeys
     base_uri "http://idealista-prod.apigee.net/public/2/search"
-    #base_uri "http://idealista.com"
 
     def initialize(key = nil)
       raise ArgumentError unless key.is_a? String
@@ -23,16 +23,15 @@ module Idealista
     def search(query)
       validate_args(query)
       query.unrubify_keys!
-      # TODO convert to symbols?
-      Hash.include ::CoreExtensions::RubifyKeys
       query["apikey"] = @key
       hash = self.class.get('', query: query).parsed_response
-      # TODO wtf is up with httparty.get??
       raise StandardError, 'Unexpected idealista response!' unless hash.is_a? Hash
       hash.rubify_keys!
       properties = Property.parse(hash["element_list"])
       #self.class.get('', query: query)
     end
+      # TODO convert to symbols?
+      # TODO wtf is up with httparty.get??
 
     private
 
