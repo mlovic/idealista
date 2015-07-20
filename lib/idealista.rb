@@ -1,7 +1,11 @@
+#$:.unshift File.expand_path(File.join(File.dirname(__FILE__), '../'))
 require "idealista/version"
+require 'idealista/client'
+require 'idealista/property'
+require 'core_extensions/rubify_keys'
 
 module Idealista
-  include HTTParty
+  Hash.include ::CoreExtensions::RubifyKeys
 
   # Your code goes here...
 end

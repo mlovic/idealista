@@ -1,40 +1,56 @@
-require_relative '../lib/idealista/client' # TODO fix load path
-require_relative '../secret' # TODO fix this
-require 'vcr'
-require 'webmock'
-
-VCR.configure do |config|
-  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
-  config.hook_into :webmock # or :fakeweb
-end
+require_relative '../lib/idealista/client' # TODO fix load path. Add lib in spchelpe
+require_relative '../lib/idealista/property' 
+require_relative '../lib/core_extensions/rubify_keys' 
+# TODO require ony necessary files or all lib/idelista.rb?
 
 RSpec.describe Idealista::Client, ".new" do
-  it 'returns client object' do
-    client = Idealista::Client.new
-    expect(client).to be_a Idealista::Client
+  context 'when passed a string' do
+    it 'returns a client object' do
+      client = Idealista::Client.new('secret01')
+      expect(client).to be_a Idealista::Client
+    end
+    it 'does not raise argument error' do
+      expect { Idealista::Client.new('secret01') }.not_to raise_error(ArgumentError)
+    end
+  end
+  
+  context 'when not passed a string as argument' do
+    it 'raises argument error with message' do
+      expect { Idealista::Client.new }.to raise_error(ArgumentError, 
+            'Client must be initialized with Idealista api key as sole argument')
+      expect { Idealista::Client.new(4) }.to raise_error(ArgumentError, 
+            'Client must be initialized with Idealista api key as sole argument')
+    end
   end
 end
 
 RSpec.describe Idealista::Client, "#search" do
   let(:query) { sample_query }
-  let(:client) { Idealista::Client.new }
-  it 'calls Idealista correctly' do
+  let(:client) { Idealista::Client.new(Secret::API_KEY) }
+
+  #it 'calls Idealista correctly' do
+    #pending
+    #VCR.use_cassette("sample") do
+      #properties = client.search(sample_query)
+      #expect(properties).to have_key("element_list")
+      #expect(properties["element_list"].size).to eq 5
+    #end
+  #end
+
+  it 'returns array of Properties' do
     VCR.use_cassette("sample") do
-      properties = client.search(query)
-      expect(properties).to have_key("elementList")
-      expect(properties["elementList"].size).to eq 5
+      properties = client.search(sample_query)
+      expect(properties).to be_a Array
+      expect(properties.first).to be_a Idealista::Property #all?
     end
   end
-  it 'returns array of Properties' do
-    pending
-    #properties = client.search(query)
-    expect(properties).to be_a Array
-    expect(properties.first).to be_a Property #all?
-  end
+
+  it 'validates arguments'
 end
 
 RSpec.describe Idealista::Client, "#configure" do
   it 'accepts configuration' do
+    pending
     client = Idealista::Client.new
     configure_client = proc do 
       client.configure { |c| c.api_key = "secret123" }
@@ -43,16 +59,3 @@ RSpec.describe Idealista::Client, "#configure" do
   end
 end
 
-def sample_query
-  query = {"apikey"   => Secret::API_KEY,
-           "country" => "es",
-           "maxItems" => 5,
-           "numPage" => 1,
-           "distance" => 60,
-           "center" => "40.4229014,-3.6976351",
-           "propertyType" => "bedrooms",
-           "operation" => "A",
-           "order" => "distance",
-           "sort" => "asc"
-  }
-end
