@@ -3,11 +3,12 @@ require_relative '../lib/idealista'
 
 RSpec.describe "simulating client" do
   it 'works' do
-    pending
-    query = Hash.new
-    #create sample hash?
-    properties = Idealista::Client.new.search(query)
-    expect(properties).to be_a Array
-    expect(properties.first).to be_a Property #all?
+    VCR.use_cassette("sample") do
+      query = sample_query(camel_case: false)
+      client = Idealista::Client.new(Secret::API_KEY)
+      properties = client.search(query)
+      expect(properties.first).to be_a Idealista::Property #all?
+      location = properties.first.location
+    end
   end
 end

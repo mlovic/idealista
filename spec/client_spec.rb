@@ -52,6 +52,13 @@ RSpec.describe Idealista::Client, "#search" do
     it 'raises error when more than one location attribute is passed'
     # TODO not sure best way
   end
+
+  context 'spike arrest occurs' do
+    it 'raises spike arrest error' do
+      VCR.use_cassette("spike_arrest") do
+      end
+    end
+  end
 end
 
 RSpec.describe Idealista::Client, "#configure" do

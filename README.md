@@ -1,6 +1,9 @@
 # Idealista
 
-TODO: Write a gem description
+Gem not published yet!!
+=======================
+
+A Ruby interface to the idealista.com API.
 
 ## Installation
 
@@ -20,7 +23,19 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+client = Idealista::Client.new("YOUR_API_KEY")
+
+query = {"country" => "es",
+         "max_items" => 5,
+         "num_page" => 1,
+         "center" => "40.4229014,-3.6976351",
+         "property_type" => "bedrooms",
+         "operation" => "A",
+         }
+
+properties = client.search(query)
+```
 
 ## Contributing
 
@@ -29,3 +44,4 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
