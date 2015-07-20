@@ -15,3 +15,4 @@ mkmf.log
 
 /imported/*
 secret.rb
+spec/fixtures/vcr_cassettes/
