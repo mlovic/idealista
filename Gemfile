@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'httparty'
+gem "rake", "~> 10.0"
 
-group :development, :test do
+group :development do
   gem 'guard-rspec'
 end
 
@@ -12,5 +12,4 @@ group :test do
   gem 'webmock'
 end
 
-# Specify your gem's dependencies in idealista.gemspec
 gemspec
