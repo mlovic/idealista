@@ -27,8 +27,10 @@ module CoreExtensions
       end
 
       def convert_to_camel_case(string)
-        string.split(/[_,-]/).inject([]){ |buffer,e| buffer.push(buffer.empty? ? e : e.capitalize) }.join
-        # TODO style
+        arr = string.split(/[_,-]/).inject([]) do |buffer,e| 
+                buffer.push(buffer.empty? ? e : e.capitalize)
+              end
+        arr.join
       end
   end
 end

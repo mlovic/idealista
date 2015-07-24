@@ -39,8 +39,9 @@ module Idealista
         # TODO extract into validator class/module??
         # TODO best way? does include? accept hash?
         unless ["property_type", "operation"].all? { |e| args.keys.include? e} && 
-               (['center', 'address', 'phone', 'user_code'] & args.keys).size == 1
+               (%w[center address phone user_code] & args.keys).size == 1
           raise ArgumentError, 'Required attributes: operation, property_type, and only one of [center, address, phone, user_code]'
+          # TODO use \ to divide in two lines
         end
       end
 

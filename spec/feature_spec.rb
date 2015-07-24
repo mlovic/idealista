@@ -3,6 +3,7 @@ require 'idealista'
 
 RSpec.describe "simulating client" do
   it 'works' do
+    pending
     VCR.use_cassette("sample") do
       query = sample_query(camel_case: false)
       client = Idealista::Client.new(Secret::API_KEY)

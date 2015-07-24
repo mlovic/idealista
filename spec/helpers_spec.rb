@@ -42,16 +42,18 @@ RSpec.describe Helpers, '#idealista_response' do
   end
 end
 
-RSpec.describe Helpers, '#test_search_method_with_missing_attribute' do
-  let(:client) { client = Idealista::Client.new(Secret::API_KEY) }
+# Not going to test this
+#
+#RSpec.describe Helpers, '#test_search_method_with_missing_attribute' do
+  #let(:client) { client = Idealista::Client.new(Secret::API_KEY) }
 
-  it 'does not raise argument error when passed a single symbol' do
-    expect { test_search_method_with_missing_attribute(client, :attr) }.not_to raise_error(ArgumentError)
-  end
+  #it 'does not raise argument error when passed a single symbol' do
+    #expect { test_search_method_with_missing_attribute(client, :attr) }.not_to raise_error(ArgumentError)
+  #end
 
-  it 'calls Client#search' do
-    expect(client).to receive(:search)
-    test_search_method_with_missing_attribute(client, :attr)
-  end
-  it 'calls Client#search with a missing attribute'
-end
+  #it 'calls Client#search' do
+    #expect(client).to receive(:search)
+    #test_search_method_with_missing_attribute(client, :attr)
+  #end
+  #it 'calls Client#search with a missing attribute'
+#end
