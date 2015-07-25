@@ -40,6 +40,9 @@ RSpec.describe Helpers, '#idealista_response' do
   it 'does not raise an error' do
     expect { idealista_response }.not_to raise_error
   end
+  it 'returns hash' do
+    expect(idealista_response).to be_a Hash
+  end
 end
 
 # Not going to test this

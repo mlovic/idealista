@@ -36,6 +36,8 @@ module Helpers
   end
 
   def idealista_response
+    # TODO clean up, refactor
+    hash = {}
     VCR.use_cassette("sample") do
       client = Client.new
       #hash = client.get_raw_idealista_data(sample_query_with_key)
@@ -44,6 +46,7 @@ module Helpers
         parsed_response
       hash.rubify_keys!
     end
+    hash
   end
 
   def test_search_method_with_missing_attribute(client, missing_attr)
