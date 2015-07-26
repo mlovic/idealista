@@ -25,10 +25,18 @@ module Idealista
       query.unrubify_keys!
       query["apikey"] = @key
       hash = self.class.get('', query: query).parsed_response
+      # TODO separate call and dealing with response
       raise StandardError, 'Unexpected idealista response!' unless hash.is_a? Hash
       hash.rubify_keys!
+      if hash["fault"] && 
+         hash["fault"]["faultstring"].include?('Spike arrest violation')
+        # TODO use errorcode instead?
+        raise SpikeArrestError, hash["fault"]["faultstring"]
+      end
+      # TODO deal with different http response body encodings. httparty parses 
+      # binary into a hash, not string
+      # Seems to work actully, with spike arrest at least
       properties = Property.parse(hash["element_list"])
-      #self.class.get('', query: query)
     end
       # TODO convert to symbols?
       # TODO wtf is up with httparty.get??

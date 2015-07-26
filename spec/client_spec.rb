@@ -1,5 +1,6 @@
 require 'idealista/client'
 require 'idealista/property'
+require 'idealista/spike_arrest_error'
 require 'core_extensions/rubify_keys'
 # TODO require ony necessary files or all lib/idelista.rb?
 
@@ -53,9 +54,12 @@ RSpec.describe Idealista::Client, "#search" do
     # TODO not sure best way
   end
 
-  context 'spike arrest occurs' do
+  context 'when spike arrest occurs' do
     it 'raises spike arrest error' do
-      VCR.use_cassette("spike_arrest") do
+      VCR.use_cassette("spike_arrest_violation") do
+        expect { client.search(sample_query) }.to raise_error(SpikeArrestError, 
+                            "Spike arrest violation. Allowed rate : 1ps")
+        # TODO Write method to catch spike arrest response?
       end
     end
   end
