@@ -45,6 +45,20 @@ RSpec.describe Helpers, '#idealista_response' do
   end
 end
 
+RSpec.describe Helpers, '#sample_property' do
+  it 'returns a Property' do
+    expect(sample_property).to be_a Idealista::Property
+    # TODO always explicitly refer to classes with all toplevel modules? check twitt
+  end
+
+  it 'property has all getter methods' do
+    require 'pp'
+    pp idealista_response
+    expect(sample_property).to respond_to :address
+    expect(sample_property).to respond_to :bathrooms
+  end
+end
+
 # Not going to test this
 #
 #RSpec.describe Helpers, '#test_search_method_with_missing_attribute' do

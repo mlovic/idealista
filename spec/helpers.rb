@@ -1,6 +1,7 @@
 require 'httparty'
 require 'core_extensions/rubify_keys'
 require 'idealista/query'
+require 'idealista/property'
 
 module Helpers
   Hash.include ::CoreExtensions::RubifyKeys
@@ -47,6 +48,10 @@ module Helpers
       hash.rubify_keys!
     end
     hash
+  end
+
+  def sample_property
+    Idealista::Property.new(idealista_response["element_list"].first)
   end
 
   def test_search_method_with_missing_attribute(client, missing_attr)
