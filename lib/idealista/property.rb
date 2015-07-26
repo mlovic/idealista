@@ -1,14 +1,26 @@
 
 module Idealista 
   class Property
+    # TODO all idealista attributes or only some? allow configure?
+    attr_reader :price, :address, :bedrooms
 
-    def initialize(options = {})
-      @attributes = options
+    def initialize(attributes = {})
+      # add type argument
+      # TODO block to try to add if exists
+      @price = attributes["price"]      
+      @address = attributes["address"]      
+      @bathrooms = attributes["bathrooms"]
+      @bedrooms = attributes['bedrooms']
+      @description = attributes["description"]
+      @distance = attributes["distance"]
+      @floor = attributes["floor"]
       # TODO create instance vars and attr_accessors with options hash
+      # temporary rescue
     end
 
     def self.parse(element_list)
       element_list.map do |p|
+        raise "Element is not a hash: #{p.inspect}" unless p.is_a? Hash
         Property.new(p)
       end
     end
