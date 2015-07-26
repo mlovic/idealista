@@ -17,15 +17,15 @@ module Helpers
 
   def sample_query(with_key: false, camel_case: false)
     # TODO best way to handle? create shortcut method?
-    query = {"country" => "es",
-             "max_items" => 5,
-             "num_page" => 1,
-             "distance" => 60,
-             "center" => "40.4229014,-3.6976351",
-             "property_type" => "bedrooms",
-             "operation" => "A",
-             "order" => "distance",
-             "sort" => "asc"
+    query = {:country => "es",
+             :max_items => 5,
+             :num_page => 1,
+             :distance => 60,
+             :center => "40.4229014,-3.6976351",
+             :property_type => "bedrooms",
+             :operation => "A",
+             :order => "distance",
+             :sort => "asc"
              }
      query.unrubify_keys! if camel_case
      query.merge!({"apikey" => Secret::API_KEY}) if with_key

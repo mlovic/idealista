@@ -23,7 +23,7 @@ module Idealista
     def search(query)
       validate_args(query)
       query.unrubify_keys!
-      query["apikey"] = @key
+      query[:apikey] = @key
       hash = self.class.get('', query: query).parsed_response
       # TODO separate call and dealing with response
       raise StandardError, 'Unexpected idealista response!' unless hash.is_a? Hash
@@ -46,8 +46,8 @@ module Idealista
       def validate_args(args)
         # TODO extract into validator class/module??
         # TODO best way? does include? accept hash?
-        unless ["property_type", "operation"].all? { |e| args.keys.include? e} && 
-               (%w[center address phone user_code] & args.keys).size == 1
+        unless [:property_type, :operation].all? { |e| args.keys.include? e} && 
+               ([:center, :address, :phone, :user_code] & args.keys).size == 1
           raise ArgumentError, 'Required attributes: operation, property_type, and only one of [center, address, phone, user_code]'
           # TODO use \ to divide in two lines
         end
