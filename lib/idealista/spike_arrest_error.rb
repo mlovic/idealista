@@ -1,10 +1,10 @@
 class SpikeArrestError < StandardError
+  # TODO make spikearresterror inherit from networkError or similar
   #def initialize
     #super
   #end
 
   #def message
-    # TODO use this?
     #'Spike arrest violation custom message'
   #end
 end

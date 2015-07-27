@@ -4,6 +4,8 @@ require 'idealista/client'
 require 'idealista/property'
 require 'core_extensions/rubify_keys'
 
+# TODO figure out best way to browse todos
+
 module Idealista
   Hash.include ::CoreExtensions::RubifyKeys
 

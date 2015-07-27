@@ -5,7 +5,8 @@ require 'httparty'
 
 
 module Idealista
-  #TODO use client class or just use Idealista mod ?
+  # TODO implement search method as part of idealista module? In addition to 
+  # client class, like twitter
   class Client
 
     include HTTParty
@@ -38,8 +39,7 @@ module Idealista
       # Seems to work actully, with spike arrest at least
       properties = Property.parse(hash["element_list"])
     end
-      # TODO convert to symbols?
-      # TODO wtf is up with httparty.get??
+      # TODO convert response to symbols?
 
     private
 
@@ -48,12 +48,11 @@ module Idealista
         # TODO best way? does include? accept hash?
         unless [:property_type, :operation].all? { |e| args.keys.include? e} && 
                ([:center, :address, :phone, :user_code] & args.keys).size == 1
-          raise ArgumentError, 'Required attributes: operation, property_type, and only one of [center, address, phone, user_code]'
-          # TODO use \ to divide in two lines
+          raise ArgumentError, 'Required attributes: operation, property_type, ' \
+                               'and only one of [center, address, phone, user_code]'
         end
       end
 
-  # TODO make spikearresterror inherit from networkError or similar
 
   end
 end
