@@ -2,6 +2,7 @@
 require "idealista/version"
 require 'idealista/client'
 require 'idealista/property'
+require 'idealista/configuration'
 require 'core_extensions/rubify_keys'
 
 # TODO figure out best way to browse todos

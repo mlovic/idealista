@@ -64,4 +64,10 @@ module Helpers
     # TODO put expectations in helper methods okay??
   end
 
+  def execute_search_with_spike_arrest(client)
+    VCR.use_cassette("spike_arrest_violation") { client.search(sample_query) }
+  rescue 
+    nil
+  # TODO fix the rescue nil
+  end
 end

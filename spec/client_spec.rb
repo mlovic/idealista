@@ -25,6 +25,18 @@ RSpec.describe Idealista::Client, ".new" do
   end
 end
 
+RSpec.describe Idealista::Client, '.configure' do
+  let(:client) { Idealista::Client.new(Secret::API_KEY) }
+  it 'accepts block' do
+    expect { client.configure { |c| c.wait_and_retry = true } }.not_to raise_error
+  end
+  it 'changes client instance configuration' do
+    expect(client.configuration.wait_and_retry).to be false
+    client.configure { |c| c.wait_and_retry = true } 
+    expect(client.configuration.wait_and_retry).to be true
+  end
+end
+
 RSpec.describe Idealista::Client, "#search" do
   let(:query) { sample_query }
   let(:client) { Idealista::Client.new(Secret::API_KEY) }
@@ -60,6 +72,19 @@ RSpec.describe Idealista::Client, "#search" do
         expect { client.search(sample_query) }.to raise_error(SpikeArrestError, 
                             "Spike arrest violation. Allowed rate : 1ps")
         # TODO Write method to catch spike arrest response?
+      end
+    end
+    context 'when sleep and retry is set' do
+      it 'waits and retries' do
+        client.configure { |c| c.wait_and_retry = true } # okay?
+        expect(client).to receive(:sleep)
+        execute_search_with_spike_arrest(client)
+      end
+    end
+    context 'when sleep and retry is not set' do
+      it 'does not waits and retries' do
+        expect(client).not_to receive(:sleep)
+        execute_search_with_spike_arrest(client)
       end
     end
   end

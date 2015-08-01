@@ -7,6 +7,7 @@ RSpec.describe "simulating client" do
     VCR.use_cassette("sample") do
       query = sample_query(camel_case: false)
       client = Idealista::Client.new(Secret::API_KEY)
+      client.configure { |c| c.wait_and_retry = true }
       properties = client.search(query)
       expect(properties.first).to be_a Idealista::Property #all?
       #location = properties.first.location
