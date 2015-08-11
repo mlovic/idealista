@@ -58,8 +58,8 @@ module Helpers
     # missing_attr.to_s!
     VCR.use_cassette("request_missing_#{missing_attr.to_s}") do
       invalid_query = sample_query.remove_attr(missing_attr)
-      expect { client.search(invalid_query) }.to raise_error(ArgumentError, 
-                     "Required attributes: operation, property_type, and only one of [center, address, phone, user_code]")
+      expect { client.search(invalid_query) }.to raise_error(ArgumentError)
+                     #"Required attributes: operation, property_type, and only one of [center, address, phone, user_code]")
     end
     # TODO put expectations in helper methods okay??
   end

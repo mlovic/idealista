@@ -32,7 +32,8 @@ module Idealista
 
     def search(query)
       failed_once ||= false # TODO fix this 
-      validate_args(query)
+      #validate_args(query)
+      query.validate
       query.unrubify_keys!
       query[:apikey] = @key
       hash = self.class.get('', query: query).parsed_response
@@ -58,19 +59,6 @@ module Idealista
       end
     end
       # TODO convert response to symbols?
-
-    private
-
-      def validate_args(args)
-        # TODO extract into validator class/module??
-        # TODO best way? does include? accept hash?
-        unless [:property_type, :operation].all? { |e| args.keys.include? e} && 
-               ([:center, :address, :phone, :user_code] & args.keys).size == 1
-          raise ArgumentError, 'Required attributes: operation, property_type, ' \
-                               'and only one of [center, address, phone, user_code]'
-        end
-      end
-
 
   end
 end

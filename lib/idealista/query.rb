@@ -10,9 +10,13 @@ module Idealista
     end
 
     def validate
-      validator = QueryValidator.new(self[:property_type].to_sym) 
-      # TODO singular or plural. convert?
-      validator.validate(self)
+      if self[:property_type]
+        validator = QueryValidator.new(self[:property_type].to_sym) 
+        # TODO singular or plural. convert?
+        validator.validate(self)
+      else
+        raise ArgumentError, 'Required attribute: property_type'
+      end
     end
   end
 end
