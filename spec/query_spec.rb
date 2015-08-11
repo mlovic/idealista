@@ -17,9 +17,6 @@ end
 
 RSpec.describe Idealista::Query, '#validate' do
   # TODO pass property type as arg instead of reading internally from query hash?
-  # TODO extract to query validator class?
-  #context 'query is for bedrooms' do
-  #end
   context 'when wrong attribute applies to all property types' do
     let(:query) { sample_query.extend Idealista::Query }
 
