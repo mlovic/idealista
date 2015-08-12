@@ -6,6 +6,7 @@ require 'webmock'
 RSpec.configure do |c|
   c.include Helpers
 end
+# TODO clean up unnecessary dependency declaration
 
 RSpec.describe Idealista::Property, '.new' do
   # TODO extract setup to fixtures
@@ -26,13 +27,6 @@ RSpec.describe Idealista::Property, '.new' do
     #expect(property).to respond_to :property_type TODO
   end
 
-end
-
-RSpec.describe Idealista::Property, '.parse' do
-  it 'returns array of properties' do
-    element_list = idealista_response["element_list"]
-    properties = Idealista::Property.parse(element_list)
-  end
 end
 
 RSpec.describe Idealista::Property, '#location' do

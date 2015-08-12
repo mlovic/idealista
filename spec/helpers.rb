@@ -2,11 +2,14 @@ require 'httparty'
 require 'core_extensions/rubify_keys'
 require 'idealista/query'
 require 'idealista/property'
+require 'idealista/idealista_parser'
 
 module Helpers
   Hash.include ::CoreExtensions::RubifyKeys
 
   class Client
+    # TODO this is a mess
+    # maybe ditch vcr for fixtures? manage somehow
     include HTTParty
     base_uri "http://idealista-prod.apigee.net/public/2/search"
 
@@ -18,6 +21,7 @@ module Helpers
 
   def sample_query(with_key: false, camel_case: false)
     # TODO best way to handle? create shortcut method?
+    # TODO put query into fixture ?
     query = {:country => "es",
              :max_items => 5,
              :num_page => 1,
@@ -38,6 +42,7 @@ module Helpers
 
   def idealista_response
     # TODO clean up, refactor
+    # TODO put query into fixture ?
     hash = {}
     VCR.use_cassette("sample") do
       client = Client.new
@@ -45,13 +50,26 @@ module Helpers
       hash = ::Helpers::Client.new.
         get_raw_idealista_data(sample_query(with_key: true, camel_case: true)).
         parsed_response
-      hash.rubify_keys!
+    end
+    # this is a mess
+    hash
+  end
+
+  def spike_arrest_response
+    # TODO refactor with above
+    hash = {}
+    VCR.use_cassette("spike_arrest") do
+      client = Client.new
+      hash = ::Helpers::Client.new.
+        get_raw_idealista_data(sample_query(with_key: true, camel_case: true)).
+        parsed_response
     end
     hash
   end
 
   def sample_property
-    Idealista::Property.new(idealista_response["element_list"].first)
+    # TODO fix this. fixture at least
+    Idealista::IdealistaParser.parse(idealista_response).first
   end
 
   def test_search_method_with_missing_attribute(client, missing_attr)
