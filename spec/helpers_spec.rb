@@ -1,17 +1,6 @@
 require_relative 'helpers'
 require 'idealista/client' 
 
-RSpec.describe Helpers::Client, '#get_raw_idealista_data' do
-  it 'returns a hash' do
-    VCR.use_cassette("sample") do
-      return_val = Helpers::Client.new
-                             .get_raw_idealista_data(sample_query(with_key: true,
-                                                                  camel_case: true))
-      expect(return_val).to be_a Hash
-    end
-  end
-end
-
 RSpec.describe Helpers, '#sample_query' do
   it 'returns a hash' do
     expect(sample_query).to be_a Hash
@@ -37,15 +26,32 @@ end
 #end
 
 RSpec.describe Helpers, '#idealista_response' do
+  let(:response) { idealista_response(spike_arrest: false) }
 
+  it 'defaults to non spike arrest option' do
+    expect(response).to eq idealista_response
+  end
   it 'does not raise an error' do
-    expect { idealista_response }.not_to raise_error
+    expect { response }.not_to raise_error
   end
 
   it 'returns hash' do
-    expect(idealista_response).to be_a Hash
+    expect(response).to be_a Hash
   end
 
+  context 'when called with spike arrest option' do
+    let(:response) { idealista_response(spike_arrest: true) }
+
+    it 'returns hash' do
+      expect(response).to be_a Hash
+    end
+
+    it 'returns spike arrest response body' do
+      expect(response['fault']['detail']['errorcode']).to eq \
+        'policies.ratelimit.SpikeArrestViolation' 
+    end
+    # TODO dry up. behaves like?
+  end
 end
 
 RSpec.describe Helpers, '#sample_property' do
@@ -55,8 +61,6 @@ RSpec.describe Helpers, '#sample_property' do
   end
 
   it 'property has all getter methods' do
-    require 'pp'
-    pp idealista_response
     expect(sample_property).to respond_to :address
     expect(sample_property).to respond_to :bathrooms
   end

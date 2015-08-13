@@ -7,18 +7,6 @@ require 'idealista/idealista_parser'
 module Helpers
   Hash.include ::CoreExtensions::RubifyKeys
 
-  class Client
-    # TODO this is a mess
-    # maybe ditch vcr for fixtures? manage somehow
-    include HTTParty
-    base_uri "http://idealista-prod.apigee.net/public/2/search"
-
-    def get_raw_idealista_data(query)
-      hash = self.class.get('', query: query)
-    end
-
-  end
-
   def sample_query(with_key: false, camel_case: false)
     # TODO best way to handle? create shortcut method?
     # TODO put query into fixture ?
@@ -40,31 +28,14 @@ module Helpers
     # TODO unrubify?
   end
 
-  def idealista_response
-    # TODO clean up, refactor
     # TODO put query into fixture ?
-    hash = {}
-    VCR.use_cassette("sample") do
-      client = Client.new
-      #hash = client.get_raw_idealista_data(sample_query_with_key)
-      hash = ::Helpers::Client.new.
-        get_raw_idealista_data(sample_query(with_key: true, camel_case: true)).
-        parsed_response
+  def idealista_response(spike_arrest: false)
+    cassette = spike_arrest ? 'spike_arrest_violation' : 'sample'
+    uri      = "http://idealista-prod.apigee.net/public/2/search"
+    query    = sample_query(with_key: true, camel_case: true)
+    VCR.use_cassette(cassette) do
+      HTTParty.get(uri, query: query).parsed_response
     end
-    # this is a mess
-    hash
-  end
-
-  def spike_arrest_response
-    # TODO refactor with above
-    hash = {}
-    VCR.use_cassette("spike_arrest") do
-      client = Client.new
-      hash = ::Helpers::Client.new.
-        get_raw_idealista_data(sample_query(with_key: true, camel_case: true)).
-        parsed_response
-    end
-    hash
   end
 
   def sample_property
