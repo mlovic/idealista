@@ -32,26 +32,37 @@ module Idealista
     end
 
     def search(query)
-      failed_once ||= false # TODO fix this . turn into block?
       query.validate
       query.unrubify_keys!
       query[:apikey] = @key
-      response = self.class.get('', query: query).parsed_response
+      sleep_and_retry(2, 3) do
+        response = self.class.get('', query: query).parsed_response
+        properties = IdealistaParser.parse(response)
+      end
+      #properties
       # TODO separate call and dealing with response. Request.perform?
       # TODO deal with different http response body encodings. httparty parses 
       # binary into a hash, not string
       # Seems to work actually, with spike arrest at least
-      properties = IdealistaParser.parse(response)
-    rescue SpikeArrestError 
-      if @configuration.wait_and_retry && !failed_once
-        failed_once = true
-        sleep 3
-        retry
-      else
-        raise
-      end
-    end
       # TODO convert response to symbols?
+    end
+
+    private
+
+      def sleep_and_retry(max_tries, sleep_time)
+        failed_once ||= false # TODO fix this . turn into block?
+        yield
+      rescue SpikeArrestError 
+        puts 'rescuing sa error'
+        if @configuration.wait_and_retry && !failed_once
+          failed_once = true
+          sleep 3
+          retry
+        else
+          raise
+          puts 'error not allowed'
+        end
+      end
 
   end
 end

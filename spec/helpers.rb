@@ -21,7 +21,7 @@ module Helpers
              :sort => "asc"
              }
      query.unrubify_keys! if camel_case
-     query.merge!({"apikey" => Secret::API_KEY}) if with_key
+     query['apikey'] = Secret::API_KEY if with_key
      # TODO add merge method to Query?
      query.extend Idealista::Query
      return query
@@ -54,9 +54,9 @@ module Helpers
   end
 
   def execute_search_with_spike_arrest(client)
-    VCR.use_cassette("spike_arrest_violation") { client.search(sample_query) }
-  rescue 
-    nil
+    VCR.use_cassette("spike_arrest_violation", allow_playback_repeats: true) { client.search(sample_query) }
+  #rescue 
+    #nil
   # TODO fix the rescue nil
   end
 end

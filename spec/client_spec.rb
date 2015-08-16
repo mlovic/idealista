@@ -78,13 +78,23 @@ RSpec.describe Idealista::Client, "#search" do
       it 'waits and retries' do
         client.configure { |c| c.wait_and_retry = true } # okay?
         expect(client).to receive(:sleep)
-        execute_search_with_spike_arrest(client)
+        expect { execute_search_with_spike_arrest(client) }.to raise_error SpikeArrestError
+        #execute_search_with_spike_arrest(client) rescue nil
       end
     end
-    context 'when sleep and retry is not set' do
+
+    it 'test' do
+      class Test; def t; sleep 1; end; end
+        test = Test.new
+        expect(test).to receive(:sleep)
+        expect { test.t }.not_to raise_error
+    end
+
+    context 'when sleep_and_retry is not set' do
       it 'does not waits and retries' do
         expect(client).not_to receive(:sleep)
-        execute_search_with_spike_arrest(client)
+        #execute_search_with_spike_arrest(client, only_first_time: true) 
+        expect {execute_search_with_spike_arrest(client)}.to raise_error
       end
     end
   end
