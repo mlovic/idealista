@@ -67,6 +67,7 @@ RSpec.describe Idealista::Client, "#search" do
   end
 
   context 'when spike arrest occurs' do
+
     it 'raises spike arrest error' do
       VCR.use_cassette("spike_arrest_violation") do
         expect { client.search(sample_query) }.to raise_error(SpikeArrestError, 
@@ -74,20 +75,41 @@ RSpec.describe Idealista::Client, "#search" do
         # TODO Write method to catch spike arrest response?
       end
     end
+    # TODO research how to set same examples for different contexts
+    
     context 'when sleep and retry is set' do
+
       it 'waits and retries' do
         client.configure { |c| c.wait_and_retry = true } # okay?
         expect(client).to receive(:sleep)
         expect { execute_search_with_spike_arrest(client) }.to raise_error SpikeArrestError
         #execute_search_with_spike_arrest(client) rescue nil
       end
-    end
 
-    it 'test' do
-      class Test; def t; sleep 1; end; end
-        test = Test.new
-        expect(test).to receive(:sleep)
-        expect { test.t }.not_to raise_error
+      context 'when sleep_time and number_of_retries are set individually' do
+        #not necessary ?
+
+        before do
+          @client = Idealista::Client.new(Secret::API_KEY)
+          @client.configure do |c| 
+            c.wait_and_retry do |w| # somehow get rid of w?
+              w.sleep_time = 2
+              w.number_of_retries = 2
+            end
+          end
+        end
+
+        it 'client sleeps for correct number of seconds' do
+          expect(@client).to receive(:sleep).with(2).twice
+          expect { execute_search_with_spike_arrest(@client) }.to raise_error SpikeArrestError
+        end
+
+        it 'client retries correct number of times' do
+          expect(@client).to receive(:sleep).twice
+          expect { execute_search_with_spike_arrest(@client) }.to raise_error SpikeArrestError
+        end
+      end
+
     end
 
     context 'when sleep_and_retry is not set' do

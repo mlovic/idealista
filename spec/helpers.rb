@@ -59,4 +59,14 @@ module Helpers
     #nil
   # TODO fix the rescue nil
   end
+
+  #def set_wait_and_retry(client, time, retries)
+    #client.configure do |c| 
+      #c.wait_and_retry do |w| # somehow get rid of w?
+        #w.wait_time = time
+        #w.number_of_retries = retries
+      #end
+    #end
+    #client
+  #end
 end
