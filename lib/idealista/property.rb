@@ -20,7 +20,7 @@ module Idealista
       # temporary rescue
     end
 
-    def location
+    def coordinates
       [@latitude, @longitude]
     end
   end

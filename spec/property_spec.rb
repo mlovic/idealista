@@ -29,12 +29,12 @@ RSpec.describe Idealista::Property, '.new' do
 
 end
 
-RSpec.describe Idealista::Property, '#location' do
+RSpec.describe Idealista::Property, '#coordinates' do
   let(:property) { sample_property }
 
   it 'returns an array of two numbers' do    
-    expect(property.location).to be_an Array
-    expect(property.location.size).to eq 2
-    expect(property.location.first).to be_a Float
+    expect(property.coordinates).to be_an Array
+    expect(property.coordinates.size).to eq 2
+    expect(property.coordinates.first).to be_a Float
   end
 end
