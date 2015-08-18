@@ -30,7 +30,7 @@ module Helpers
 
     # TODO put query into fixture ?
   def idealista_response(spike_arrest: false)
-    cassette = spike_arrest ? 'spike_arrest_violation' : 'sample'
+    cassette = spike_arrest ? 'spike_arrest_violation' : 'standard'
     uri      = "http://idealista-prod.apigee.net/public/2/search"
     query    = sample_query(with_key: true, camel_case: true)
     VCR.use_cassette(cassette) do
