@@ -50,7 +50,7 @@ module Idealista
     private
 
       def sleep_and_retry(sleep_time, max_retries)
-        tries ||= 0 # TODO fix this . turn into block?
+        tries ||= 0
         yield
       rescue SpikeArrestError 
         puts 'rescuing sa error'

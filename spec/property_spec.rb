@@ -11,14 +11,13 @@ end
 RSpec.describe Idealista::Property, '.new' do
   # TODO extract setup to fixtures
   let(:attributes) do
-    # TODO take attributes from vcr cassette. write helper method to parse cassete?
-    attributes = {"address" => "one", "bedrooms" => 3,  "property_type" => "two"}
+    {"address" => "one", "bedrooms" => 3, "property_type" => "two"}
   end
-  let(:property) { Idealista::Property.new(attributes) }
+    # TODO take attributes from vcr cassette. write helper method to parse cassete?
+  let(:property) { sample_property }
 
   it 'accepts hash of attributes' do
     expect { Idealista::Property.new(attributes) }.not_to raise_error
-                                                          #(ArgumentError)
   end
 
   it 'creates getter method for each attribute' do
