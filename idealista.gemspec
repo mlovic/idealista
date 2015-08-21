@@ -13,9 +13,9 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/markolovic/idealista"
   spec.license       = "MIT"
 
-  spec.files = %w(LICENSE.md README.md idealista.gemspec) + Dir['lib/**/*.rb']
+  spec.files = %w(LICENSE.md README.md idealista.gemspec lib/idealista.rb) + Dir['lib/**/*.rb']
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "httparty", "~> 0.13"
   spec.add_development_dependency "bundler", "~> 1.7"
+  spec.add_dependency "httparty", '~> 0.13'
 end
