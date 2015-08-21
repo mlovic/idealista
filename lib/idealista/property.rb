@@ -2,7 +2,7 @@ module Idealista
   class Property
     # TODO all idealista attributes or only some? allow configure?
     # TODO Location class?
-    attr_reader :price, :address, :bedrooms, :bathrooms, :description, :distance, :floor, :latitude, :longitude
+    attr_reader :price, :address, :bedrooms, :bathrooms, :description, :distance, :floor, :latitude, :longitude, :url
 
     def initialize(attributes = {})
       # add type argument
@@ -16,6 +16,7 @@ module Idealista
       @floor = attributes['floor']
       @latitude = attributes['latitude']
       @longitude = attributes['longitude']
+      @url = attributes['url']
       # TODO create instance vars and attr_accessors with options hash
     end
 
