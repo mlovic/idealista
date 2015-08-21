@@ -33,6 +33,7 @@ module Idealista
     end
 
     def search(query)
+      # TODO maybe return results object instead, containing @properties and response body and info. Including enumerable
       # TODO clean this up, write spec
       query = query.dup
       query.extend Idealista::Query
