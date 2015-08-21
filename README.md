@@ -26,12 +26,12 @@ Or install it yourself as:
 ```ruby
 client = Idealista::Client.new("YOUR_API_KEY")
 
-query = {"country" => "es",
-         "max_items" => 5,
-         "num_page" => 1,
-         "center" => "40.4229014,-3.6976351",
-         "property_type" => "bedrooms",
-         "operation" => "A",
+query = {country:       "es",
+         max_items:     5,
+         num_page:      1,
+         center:        "40.4229014,-3.6976351",
+         property_type: "bedrooms",
+         operation:     "A",
          }
 
 properties = client.search(query)
