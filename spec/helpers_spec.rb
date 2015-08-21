@@ -15,7 +15,7 @@ RSpec.describe Helpers, '#sample_query' do
     expect { sample_query(wrong_option: true) }.to raise_error(ArgumentError)
   end
   it 'return hash extends Query' do
-    expect(sample_query).to respond_to :remove_attr
+    expect(sample_query.extend(Idealista::Query)).to respond_to :remove_attr
   end
 end
 

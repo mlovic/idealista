@@ -3,7 +3,8 @@
 require 'httparty'
 require 'idealista/configuration'
 require 'idealista/idealista_parser'
-#require 'idealista/core_extensions/rubify_keys'
+require 'core_extensions/rubify_keys'
+require 'idealista/query'
 
 
 module Idealista
@@ -32,6 +33,9 @@ module Idealista
     end
 
     def search(query)
+      # TODO clean this up, write spec
+      query = query.dup
+      query.extend Idealista::Query
       query.validate
       query.unrubify_keys!
       query[:apikey] = @key

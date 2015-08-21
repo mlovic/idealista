@@ -23,7 +23,6 @@ module Helpers
      query.unrubify_keys! if camel_case
      query['apikey'] = Secret::API_KEY if with_key
      # TODO add merge method to Query?
-     query.extend Idealista::Query
      return query
     # TODO unrubify?
   end
@@ -46,7 +45,8 @@ module Helpers
   def test_search_method_with_missing_attribute(client, missing_attr)
     # missing_attr.to_s!
     VCR.use_cassette("request_missing_#{missing_attr.to_s}") do
-      invalid_query = sample_query.remove_attr(missing_attr)
+      # TODO maybe fix this?
+      invalid_query = sample_query.extend(Idealista::Query).remove_attr(missing_attr)
       expect { client.search(invalid_query) }.to raise_error(ArgumentError)
                      #"Required attributes: operation, property_type, and only one of [center, address, phone, user_code]")
     end
