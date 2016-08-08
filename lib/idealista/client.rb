@@ -1,6 +1,6 @@
 #$:.unshift File.expand_path(File.join(File.dirname(__FILE__), '../'))
-
-require 'httparty'
+require "net/http"
+require 'json'
 
 require 'idealista/configuration'
 require 'idealista/idealista_parser'
@@ -17,10 +17,8 @@ module Idealista
   # client class, like twitter
   class Client
 
-    # TODO replace httparty with net::http
-    include HTTParty
     Hash.include ::CoreExtensions::RubifyKeys
-    base_uri "http://idealista-prod.apigee.net/public/2/search"
+    BASE_URL = "http://idealista-prod.apigee.net/public/2/search"
 
     attr_accessor :configuration
 
@@ -47,8 +45,12 @@ module Idealista
       query.unrubify_keys!
       query[:apikey] = @key
       sleep_and_retry(@configuration.sleep_time, @configuration.number_of_retries) do
-        response = self.class.get('', query: query).parsed_response
-        properties = IdealistaParser.parse(response)
+        uri = URI.parse(BASE_URL)
+        uri.query = URI.encode_www_form(query)
+        response = Net::HTTP.get_response(uri)
+        data = JSON.parse(response.body)
+
+        properties = IdealistaParser.parse(data)
       end
       #properties
       # TODO separate call and dealing with response. Request.perform?
