@@ -2,6 +2,7 @@ module Idealista
   class QueryValidator
     # TODO look at hash_validator gem. implement rules?
     # TODO validate attribute type. Use key-value pair insted of just symbol?
+    # TODO account for: {"error"=>"Invalid request. If you provide an address or a center coordinate you should also provide the radio or distance parameters", "error_code"=>42}
     PROPERTY_TYPES =  %i(homes bedrooms garages offices premises)
     REQUIRED_FIELDS = %i(property_type operation)
     LOCATION_FIELDS = %i(center address phone user_code) # TODO identifier fields? uniquefields?

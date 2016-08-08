@@ -19,3 +19,5 @@ spec/fixtures/vcr_cassettes/
 test.rb
 todo
 *.gem
+.ruby-version
+tags

@@ -1,17 +1,23 @@
 #$:.unshift File.expand_path(File.join(File.dirname(__FILE__), '../'))
 
 require 'httparty'
+
 require 'idealista/configuration'
 require 'idealista/idealista_parser'
 require 'core_extensions/rubify_keys'
 require 'idealista/query'
 
 
+class SpikeArrestError < StandardError
+  # TODO should inherit from network error
+end
+
 module Idealista
   # TODO implement search method as part of idealista module? In addition to 
   # client class, like twitter
   class Client
 
+    # TODO replace httparty with net::http
     include HTTParty
     Hash.include ::CoreExtensions::RubifyKeys
     base_uri "http://idealista-prod.apigee.net/public/2/search"
@@ -57,6 +63,7 @@ module Idealista
       def sleep_and_retry(sleep_time, max_retries)
         tries ||= 0
         yield
+        # TODO extract SAE?
       rescue SpikeArrestError 
         puts 'rescuing sa error'
         if @configuration.wait_and_retry && tries < max_retries

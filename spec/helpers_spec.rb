@@ -47,6 +47,7 @@ RSpec.describe Helpers, '#idealista_response' do
     end
 
     it 'returns spike arrest response body' do
+      pending
       expect(response['fault']['detail']['errorcode']).to eq \
         'policies.ratelimit.SpikeArrestViolation' 
     end

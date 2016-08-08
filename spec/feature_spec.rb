@@ -11,11 +11,11 @@ RSpec.describe "simulating client", :vcr do
       properties = client.search(query)
 
       expect(properties.first).to be_a Idealista::Property
-      expect(properties.first.address).to eq 'de chueca 9'
+      expect(properties.first.address).to eq 'plaza chueca, 33'
 
       property_coordinates = properties.map(&:coordinates)
 
-      expect(property_coordinates.first).to eq [40.4227796, -3.6977149]
+      expect(property_coordinates.first).to eq [40.422726, -3.6976103]
     end
   end
 end

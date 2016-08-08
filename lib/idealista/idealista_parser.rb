@@ -12,10 +12,14 @@ module Idealista
         end
       elsif response["fault"] && 
             response["fault"]["faultstring"].include?('Spike arrest violation')
+        # TODO add quotaviolation here
         # TODO use errorcode instead?
         raise SpikeArrestError, response["fault"]["faultstring"]
+      elsif response["fault"] && 
+            response["fault"]["detail"]["errorcode"].include?('QuotaViolation')
+        raise QuotaViolationError, response["fault"]["faultstring"]
       else
-        raise 'Unexpected response!'
+        raise "Unexpected response!:  #{response}"
       end
     end
 
