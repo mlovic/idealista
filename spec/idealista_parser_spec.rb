@@ -21,4 +21,13 @@ RSpec.describe Idealista::IdealistaParser, '.parse' do
     end
   end
 
+  context 'when response is spike arrest error' do
+    let(:response) { idealista_response(spike_arrest: true) }
+
+    it 'raises spike arrest error' do
+      pending
+      expect { Idealista::IdealistaParser.parse(response) }.to raise_error
+    end
+  end
+
 end

@@ -6,10 +6,10 @@ require 'idealista/configuration'
 require 'idealista/idealista_parser'
 require 'core_extensions/rubify_keys'
 require 'idealista/query'
+require 'idealista/error'
 
 
 class SpikeArrestError < StandardError
-  # TODO should inherit from network error
 end
 
 module Idealista

@@ -1,9 +1,12 @@
+require 'idealista/error'
+
 module Idealista
   class IdealistaParser
 
     def self.parse(response)
       raise StandardError, 'response is not a hash!' unless response.is_a? Hash
       response.rubify_keys! 
+      # TODO check code first
       if response.has_key? "element_list"
         # TODO strings to symbols?
         response['element_list'].map do |p|

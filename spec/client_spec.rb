@@ -1,6 +1,6 @@
 require 'idealista/client'
 require 'idealista/property'
-require 'idealista/spike_arrest_error'
+require 'idealista/error'
 require 'core_extensions/rubify_keys'
 # TODO require ony necessary files or all lib/idelista.rb?
 
