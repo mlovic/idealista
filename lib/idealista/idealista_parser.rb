@@ -3,28 +3,47 @@ require 'idealista/error'
 module Idealista
   class IdealistaParser
 
-    def self.parse(response)
-      raise StandardError, 'response is not a hash!' unless response.is_a? Hash
-      response.rubify_keys! 
-      # TODO check code first
-      if response.has_key? "element_list"
-        # TODO strings to symbols?
-        response['element_list'].map do |p|
-          raise "Element is not a hash: #{p.inspect}" unless p.is_a? Hash
-          Property.new(p)
-        end
-      elsif response["fault"] && 
-            response["fault"]["faultstring"].include?('Spike arrest violation')
-        # TODO add quotaviolation here
-        # TODO use errorcode instead?
-        raise SpikeArrestError, response["fault"]["faultstring"]
-      elsif response["fault"] && 
-            response["fault"]["detail"]["errorcode"].include?('QuotaViolation')
-        raise QuotaViolationError, response["fault"]["faultstring"]
-      else
-        raise "Unexpected response!:  #{response}"
-      end
+    def initialize(response)
+      @response = response
     end
 
+    def results
+      return if error
+      raise "Error parsing response body: #{response_body}" unless response_body['element_list']
+      @results ||= response_body['element_list']
+    end
+
+    def error
+      @error ||= get_error(response_body)
+    end
+
+    private
+
+      def response_body
+        @response_body ||= JSON.parse(@response.body).rubify_keys!
+      end
+
+      def get_error(body)
+        return unless body['fault']
+        code = error_code(body)
+        if    code.include?('SpikeArrestViolation')
+          return Error::SpikeArrestError.new(fault_string(body))
+        elsif code.include?('QuotaViolation')
+          return Error::QuotaViolation.new(fault_string(body))
+        else
+          return Error.new("Unknown error! #{body['fault']}")
+        end
+      end
+
+    def error_code(body)
+      body['fault'] && 
+      body['fault']['detail'] && 
+      body['fault']['detail']['errorcode']
+    end
+
+    def fault_string(body)
+      body['fault'] && 
+      body['fault']['fault_string']
+    end
   end
 end

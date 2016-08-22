@@ -69,13 +69,14 @@ RSpec.describe Idealista::Client, "#search" do
   context 'when quota violation occurs' do
     it 'raises quota violation error' do
       VCR.use_cassette("quota_violation") do
-        expect { client.search(sample_query) }.to raise_error(QuotaViolationError)
+        expect { client.search(sample_query) }.to raise_error(Idealista::Error::QuotaViolation)
         # TODO Write method to catch spike arrest response?
       end
     end
     # TODO research how to set same examples for different contexts
     
   end
+
   context 'when spike arrest occurs' do
     pending
 

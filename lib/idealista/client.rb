@@ -41,21 +41,16 @@ module Idealista
       # TODO clean this up, write spec
       query = query.dup
       query.extend Idealista::Query
-      query.validate
-      query.unrubify_keys!
-      query[:apikey] = @key
+      query.validate # TODO add bang
+      request = Request.new(query, @key) # TODO search/action specific name?
       sleep_and_retry(@configuration.sleep_time, @configuration.number_of_retries) do
-        uri = URI.parse(BASE_URL)
-        uri.query = URI.encode_www_form(query)
-        response = Net::HTTP.get_response(uri)
-        data = JSON.parse(response.body)
-
-        properties = IdealistaParser.parse(data)
+        raw_response = request.perform
+        response = IdealistaParser.new(raw_response)
+        raise response.error if response.error
+        response.results.map { |result| Property.new(result) }
       end
-      #properties
       # TODO separate call and dealing with response. Request.perform?
       # TODO deal with different http response body encodings. httparty parses 
-      # binary into a hash, not string
       # Seems to work actually, with spike arrest at least
       # TODO convert response to symbols?
     end
@@ -66,7 +61,7 @@ module Idealista
         tries ||= 0
         yield
         # TODO extract SAE?
-      rescue SpikeArrestError 
+      rescue Error
         puts 'rescuing sa error'
         if @configuration.wait_and_retry && tries < max_retries
           tries += 1
