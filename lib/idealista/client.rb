@@ -7,6 +7,7 @@ require 'idealista/idealista_parser'
 require 'core_extensions/rubify_keys'
 require 'idealista/query'
 require 'idealista/error'
+require 'idealista/utils'
 
 
 class SpikeArrestError < StandardError
@@ -43,35 +44,22 @@ module Idealista
       query.extend Idealista::Query
       query.validate # TODO add bang
       request = Request.new(query, @key) # TODO search/action specific name?
-      sleep_and_retry(@configuration.sleep_time, @configuration.number_of_retries) do
-        raw_response = request.perform
-        response = IdealistaParser.new(raw_response)
-        raise response.error if response.error
-        response.results.map { |result| Property.new(result) }
+      if @configuration.wait_and_retry
+        Idealista::Utils.sleep_and_retry(@configuration.sleep_time, 
+                                         @configuration.number_of_retries, 
+                                         Idealista::Error) do
+          raw_response = request.perform
+        end
+      else
+          raw_response = request.perform
       end
+      response = IdealistaParser.new(raw_response)
+      raise response.error if response.error
+      response.results.map { |result| Property.new(result) }
       # TODO separate call and dealing with response. Request.perform?
       # TODO deal with different http response body encodings. httparty parses 
       # Seems to work actually, with spike arrest at least
       # TODO convert response to symbols?
     end
-
-    private
-
-      def sleep_and_retry(sleep_time, max_retries)
-        tries ||= 0
-        yield
-        # TODO extract SAE?
-      rescue Error
-        puts 'rescuing sa error'
-        if @configuration.wait_and_retry && tries < max_retries
-          tries += 1
-          sleep sleep_time
-          retry
-        else
-          raise
-          puts 'error not allowed'
-        end
-      end
-
   end
 end
