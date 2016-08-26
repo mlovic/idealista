@@ -1,4 +1,3 @@
-# TODO move to generic error file/module
 module Idealista
   class Error < StandardError
 

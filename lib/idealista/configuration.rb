@@ -26,7 +26,6 @@ module Idealista
         @sleep_time = nil
         @number_of_retries = nil
       end
-      #@sleep_time, @number_of_retries = val ? (3, 1) : (nil, nil)
     end
 
   end
