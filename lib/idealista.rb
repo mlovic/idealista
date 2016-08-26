@@ -8,7 +8,7 @@ require 'core_extensions/rubify_keys'
 # TODO figure out best way to browse todos
 
 module Idealista
-  Hash.include ::CoreExtensions::RubifyKeys
+  Hash.include CoreExtensions::RubifyKeys
 
   # Your code goes here...
 end

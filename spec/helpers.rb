@@ -6,7 +6,7 @@ require 'idealista/idealista_parser'
 require 'idealista/request'
 
 module Helpers
-  Hash.include ::CoreExtensions::RubifyKeys
+  Hash.include CoreExtensions::RubifyKeys
 
   def sample_query(with_key: false, camel_case: false)
     # TODO best way to handle? create shortcut method?

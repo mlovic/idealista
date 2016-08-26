@@ -3,7 +3,7 @@ require 'json'
 
 require 'idealista/configuration'
 require 'idealista/idealista_parser'
-require 'core_extensions/rubify_keys'
+require 'idealista/core_extensions/rubify_keys'
 require 'idealista/query'
 require 'idealista/error'
 require 'idealista/utils'
@@ -11,7 +11,7 @@ require 'idealista/utils'
 module Idealista
   class Client
 
-    Hash.include ::CoreExtensions::RubifyKeys
+    Hash.include CoreExtensions::RubifyKeys
     BASE_URL = "http://idealista-prod.apigee.net/public/2/search"
 
     attr_accessor :configuration
