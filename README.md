@@ -30,11 +30,13 @@ query = {country:       "es",
          max_items:      5,
          num_page:       1,
          center:        "40.4229014,-3.6976351",
+         distance:       100,
          property_type: "bedrooms",
          operation:     "A",
          }
 
 properties = client.search(query)
+  #=> [#<Idealista::Property:0x007ff732c82d10 @price=500, ...
 ```
 
 ## Contributing
