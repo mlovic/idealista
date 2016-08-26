@@ -1,7 +1,8 @@
 module CoreExtensions
   module RubifyKeys
 
-    # Creates methods #rubify_keys! and #unrubify_keys!
+    # Dynamically creates methods #rubify_keys! and #unrubify_keys!, each of which
+    # modify the object in place
     {"rubify" => "snake_case", "unrubify" => "camel_case"}.each do |name, kase|
       method_name = "#{name}_keys!"
       define_method(method_name) do 
@@ -10,7 +11,8 @@ module CoreExtensions
           val = delete(key)
           new_key = self.send("convert_to_#{kase}", key.to_s)
           self[new_key] = val
-          val.send(method_name) if val.is_a?(Hash)
+          # Recursively call method on any nested hashes
+          val.send(method_name) if val.is_a?(Hash) 
           val.each { |p| p.send(method_name) if p.is_a?(Hash) } if val.is_a?(Array)
         end
         self
