@@ -1,4 +1,4 @@
-require 'httparty'
+require "net/http"
 require 'core_extensions/rubify_keys'
 require 'idealista/query'
 require 'idealista/property'
@@ -35,7 +35,6 @@ module Helpers
     uri      = "http://idealista-prod.apigee.net/public/2/search"
     query    = sample_query(with_key: true, camel_case: true)
     VCR.use_cassette(cassette) do
-      #HTTParty.get(uri, query: query).parsed_response
       Idealista::Request.new(sample_query, Secret::API_KEY).perform
     end
   end
