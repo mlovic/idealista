@@ -7,6 +7,7 @@ require 'idealista/core_extensions/rubify_keys'
 require 'idealista/query'
 require 'idealista/error'
 require 'idealista/utils'
+require 'idealista/request'
 
 module Idealista
   class Client

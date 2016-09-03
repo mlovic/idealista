@@ -1,7 +1,7 @@
 require 'idealista/client'
 require 'idealista/property'
 require 'idealista/error'
-require 'core_extensions/rubify_keys'
+require 'idealista/core_extensions/rubify_keys'
 # TODO require ony necessary files or all lib/idelista.rb?
 
 RSpec.describe Idealista::Client, ".new" do
@@ -142,14 +142,12 @@ RSpec.describe Idealista::Client, "#search_bedrooms" do
   it 'works without bedroom attribute in input query'
 end
 
-RSpec.describe Idealista::Client, "#configure" do
-  it 'accepts configuration' do
-    pending
-    client = Idealista::Client.new
-    configure_client = proc do 
-      client.configure { |c| c.api_key = "secret123" }
-    end
-    expect(configure_client).not_to raise_error(StandardError)
-  end
-end
-
+#RSpec.describe Idealista::Client, "#configure" do
+  #it 'accepts configuration' do
+    #client = Idealista::Client.new
+    #configure_client = proc do 
+      #client.configure { |c| c.api_key = "secret123" }
+    #end
+    #expect(configure_client).not_to raise_error(StandardError)
+  #end
+#end

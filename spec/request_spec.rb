@@ -1,5 +1,5 @@
 require 'idealista/request'
-require 'core_extensions/rubify_keys'
+require 'idealista/core_extensions/rubify_keys'
 
 RSpec.describe Idealista::Request, "#new" do
   it "requires query and api key to build"

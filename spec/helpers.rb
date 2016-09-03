@@ -1,5 +1,5 @@
 require "net/http"
-require 'core_extensions/rubify_keys'
+require 'idealista/core_extensions/rubify_keys'
 require 'idealista/query'
 require 'idealista/property'
 require 'idealista/idealista_parser'

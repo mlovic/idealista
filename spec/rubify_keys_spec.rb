@@ -1,4 +1,4 @@
-require 'core_extensions/rubify_keys' 
+require 'idealista/core_extensions/rubify_keys' 
 
 RSpec.describe CoreExtensions::RubifyKeys, '#rubify_keys!' do
 
