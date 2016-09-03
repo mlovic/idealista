@@ -1,0 +1,77 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://idealista-prod.apigee.net/public/2/search?apikey=<API_KEY>&center=40.42,-3.69&country=es&distance=100&operation=A&propertyType=bedrooms
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - idealista-prod.apigee.net
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 03 Sep 2016 11:19:03 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0
+      Expires:
+      - Sat, 03 Sep 2016 11:19:03 GMT
+      Set-Cookie:
+      - LABSERVERID=A|V8qxs|V8qxs; path=/; HttpOnly
+      Via:
+      - 1.1 varnish
+      - 1.1 varnish
+      Fastly-Debug-Digest:
+      - e8d5c379f2d900f32cec531402bde820546f1245ab94cdc97b0bc5ac847529fe
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '0'
+      X-Served-By:
+      - cache-ams4142-AMS, cache-jfk8139-JFK
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Timer:
+      - S1472901543.123593,VS0,VE248
+      Vary:
+      - Accept-Encoding
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - origin, x-requested-with, accept
+      Access-Control-Max-Age:
+      - '3628800'
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Server:
+      - Apigee Router
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJhY3R1YWxQYWdlIjoxLCJlbGVtZW50TGlzdCI6W10sIml0ZW1zUGVyUGFn
+        ZSI6MjAsImxvd2VyUmFuZ2VQb3NpdGlvbiI6MCwibnVtUGFnaW5hdGlvbnMi
+        OjAsInBhZ2luYWJsZSI6ZmFsc2UsInJlc3VsdFN1bW1hcnkiOiJBbHF1aWxh
+        ciwgRG9ybWl0b3Jpb3MsIERlIHRvZG9zIGxvcyBwcmVjaW9zLCBEZSB0b2Rv
+        cyBsb3MgdGFtYcOxb3MiLCJ0b3RhbCI6MCwidG90YWxQYWdlcyI6MCwidXBw
+        ZXJSYW5nZVBvc2l0aW9uIjowfQ==
+    http_version: 
+  recorded_at: Sat, 03 Sep 2016 11:19:03 GMT
+recorded_with: VCR 3.0.3

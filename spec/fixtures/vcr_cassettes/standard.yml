@@ -1,0 +1,95 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://idealista-prod.apigee.net/public/2/search?apikey=<API_KEY>&center=40.4229014,-3.6976351&country=es&distance=60&maxItems=5&numPage=1&operation=A&order=distance&propertyType=bedrooms&sort=asc
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 06 Jul 2016 15:20:46 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0
+      Expires:
+      - Wed, 06 Jul 2016 15:20:46 GMT
+      Set-Cookie:
+      - LABSERVERID=B|V30h3|V30h3; path=/; HttpOnly
+      Via:
+      - 1.1 varnish
+      - 1.1 varnish
+      Fastly-Debug-Digest:
+      - 97bae8793374511e08bd984cc1a7bdaf5c613bb1b623e840a0cceda489c31f8f
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '0'
+      X-Served-By:
+      - cache-ams4131-AMS, cache-jfk1021-JFK
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Timer:
+      - S1467818446.521265,VS0,VE429
+      Vary:
+      - Accept-Encoding
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - origin, x-requested-with, accept
+      Access-Control-Max-Age:
+      - '3628800'
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Server:
+      - Apigee Router
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJhY3R1YWxQYWdlIjoxLCJlbGVtZW50TGlzdCI6W3siYWRkcmVzcyI6InBs
+        YXphIGNodWVjYSwgMzMiLCJhZ2VuY3kiOmZhbHNlLCJhZ2VudExvZ28iOiIi
+        LCJiYXRocm9vbXMiOjIsImNvbmRpdGlvbiI6IiIsImNvdW50cnkiOiJlcyIs
+        ImRlc2NyaXB0aW9uIjoiIiwiZGlzdGFuY2UiOiIxOSIsImRpc3RyaWN0Ijoi
+        Q2VudHJvIiwiZXh0ZXJpb3IiOmZhbHNlLCJmYXZDb21tZW50IjoiIiwiZmF2
+        b3VyaXRlIjpmYWxzZSwiZmxvb3IiOiIxIiwiaGFzVmlkZW8iOmZhbHNlLCJs
+        YXRpdHVkZSI6NDAuNDIyNzI2LCJsb25naXR1ZGUiOi0zLjY5NzYxMDMsIm11
+        bmljaXBhbGl0eSI6Ik1hZHJpZCIsIm5laWdoYm9yaG9vZCI6IkNodWVjYS1K
+        dXN0aWNpYSIsIm51bVBob3RvcyI6Miwib3BlcmF0aW9uIjoiQSIsInBob3Rv
+        c1VybCI6Ind3dy5pZGVhbGlzdGEuY29tL2lubXVlYmxlLzMwMDg2OTc2Iiwi
+        cHJpY2UiOjQwMCwicHJvcGVydHlDb2RlIjoiMzAwODY5NzYiLCJwcm9wZXJ0
+        eVR5cGUiOiJyb29tIiwicHJvcGVydHlUeXBlQ29kZSI6IkgiLCJwcm92aW5j
+        ZSI6Ik1hZHJpZCIsInJlZ2lvbiI6IiIsInJvb21zIjo2LCJzaG93QWRkcmVz
+        cyI6dHJ1ZSwic2l6ZSI6MTgwLCJzdWJyZWdpb24iOiIiLCJ0aHVtYm5haWwi
+        OiJodHRwczovL2ltZzMuaWRlYWxpc3RhLmNvbS90aHVtYnM/d2k9MTQwJmhl
+        PTEwNSZlbj0lMkJ0U0x5TyUyQmNudldGUTF2ZlExJTJGUVJOejBleHdtVldX
+        bU80TjdZWW1yJTJGQklyU2ZkYk1BcUE1MUVyVm5QUUJqV1ZlbmJQS2Z1T1BJ
+        YUNFRnVYSktxR0I1Y1UxVldlc2lzckxKVUhxY2NLWk91a3VZTjVWUllMejFS
+        TGxERXRnbEVjS0ZldEE1TE1kMlNIZEpGcXFhaTBuQSUzRCUzRCZjaD0xMTM0
+        MzM2MTUxIiwidXJsIjoid3d3LmlkZWFsaXN0YS5jb20vMzAwODY5NzYiLCJ1
+        c2VyQ29kZSI6IiIsInVzZXJUeXBlIjowLCJ2aWRlb1R5cGUiOiJGIn1dLCJp
+        dGVtc1BlclBhZ2UiOjUsImxvd2VyUmFuZ2VQb3NpdGlvbiI6MCwibnVtUGFn
+        aW5hdGlvbnMiOjAsInBhZ2luYWJsZSI6ZmFsc2UsInJlc3VsdFN1bW1hcnki
+        OiJBbHF1aWxhciwgRG9ybWl0b3Jpb3MsIERlIHRvZG9zIGxvcyBwcmVjaW9z
+        LCBEZSB0b2RvcyBsb3MgdGFtYcOxb3MiLCJ0b3RhbCI6MSwidG90YWxQYWdl
+        cyI6MSwidXBwZXJSYW5nZVBvc2l0aW9uIjoxfQ==
+    http_version: 
+  recorded_at: Wed, 06 Jul 2016 15:20:47 GMT
+recorded_with: VCR 2.9.3

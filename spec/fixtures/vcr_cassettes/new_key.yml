@@ -1,0 +1,78 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://idealista-prod.apigee.net/public/2/search?apikey=<API_KEY>&center=40.4229014,-3.6976351&country=es&distance=60&maxItems=5&numPage=1&operation=A&order=distance&propertyType=bedrooms&sort=asc
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 20 Feb 2016 17:12:39 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Content-Length:
+      - '1151'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=0
+      Expires:
+      - Sat, 20 Feb 2016 17:12:39 GMT
+      Vary:
+      - Accept-Encoding
+      Set-Cookie:
+      - LABSERVERID=B|Vsiei|Vsiei; path=/; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - origin, x-requested-with, accept
+      Access-Control-Max-Age:
+      - '3628800'
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE
+      Server:
+      - Apigee Router
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJhY3R1YWxQYWdlIjoxLCJlbGVtZW50TGlzdCI6W3siYWRkcmVzcyI6InBs
+        YXphIGNodWVjYSwgMzMiLCJhZ2VuY3kiOmZhbHNlLCJhZ2VudExvZ28iOiIi
+        LCJiYXRocm9vbXMiOjEsImNvbmRpdGlvbiI6IiIsImNvdW50cnkiOiJlcyIs
+        ImRlc2NyaXB0aW9uIjoiIiwiZGlzdGFuY2UiOiIxOSIsImRpc3RyaWN0Ijoi
+        Q2VudHJvIiwiZXh0ZXJpb3IiOmZhbHNlLCJmYXZDb21tZW50IjoiIiwiZmF2
+        b3VyaXRlIjpmYWxzZSwiZmxvb3IiOiIxIiwiaGFzVmlkZW8iOmZhbHNlLCJs
+        YXRpdHVkZSI6NDAuNDIyNzI2LCJsb25naXR1ZGUiOi0zLjY5NzYxMDMsIm11
+        bmljaXBhbGl0eSI6Ik1hZHJpZCIsIm5laWdoYm9yaG9vZCI6IkNodWVjYS1K
+        dXN0aWNpYSIsIm51bVBob3RvcyI6Miwib3BlcmF0aW9uIjoiQSIsInBob3Rv
+        c1VybCI6Ind3dy5pZGVhbGlzdGEuY29tL2lubXVlYmxlLzMwMDg2OTc2Iiwi
+        cHJpY2UiOjQ3MCwicHJvcGVydHlDb2RlIjoiMzAwODY5NzYiLCJwcm9wZXJ0
+        eVR5cGUiOiJyb29tIiwicHJvcGVydHlUeXBlQ29kZSI6IkgiLCJwcm92aW5j
+        ZSI6Ik1hZHJpZCIsInJlZ2lvbiI6IiIsInJvb21zIjo0LCJzaG93QWRkcmVz
+        cyI6dHJ1ZSwic2l6ZSI6MTgwLCJzdWJyZWdpb24iOiIiLCJ0aHVtYm5haWwi
+        OiJodHRwOi8vaW1nMy5pZGVhbGlzdGEuY29tL3RodW1icz93aT0xNDAmaGU9
+        MTA1JmVuPSUyQnRTTHlPJTJCY252V0ZRMXZmUTElMkZRUklkVVdRWVh6bm5N
+        R1g1eVF1UldtcVRYT3ZWQW1ETEFGaTZmV3o2NW5velNlbmJQS2Z1T1BJYUNF
+        RnVYSktxR0I1Y1UxVldlc2lzckxKVUhxY2NLWk91a3VZTjVWUllMejFSTGxE
+        RXRnbEVjS0ZldEE1TE1kMlNIZEpGcXFhaTBuQSUzRCUzRCZjaD0tMTcyODk4
+        NDY0MSIsInVybCI6Ind3dy5pZGVhbGlzdGEuY29tLzMwMDg2OTc2IiwidXNl
+        ckNvZGUiOiIiLCJ1c2VyVHlwZSI6MCwidmlkZW9UeXBlIjoiRiJ9XSwiaXRl
+        bXNQZXJQYWdlIjo1LCJsb3dlclJhbmdlUG9zaXRpb24iOjAsIm51bVBhZ2lu
+        YXRpb25zIjowLCJwYWdpbmFibGUiOmZhbHNlLCJyZXN1bHRTdW1tYXJ5Ijoi
+        QWxxdWlsYXIsIERvcm1pdG9yaW9zLCBEZSB0b2RvcyBsb3MgcHJlY2lvcywg
+        RGUgdG9kb3MgbG9zIHRhbWHDsW9zIiwidG90YWwiOjEsInRvdGFsUGFnZXMi
+        OjEsInVwcGVyUmFuZ2VQb3NpdGlvbiI6MX0=
+    http_version: 
+  recorded_at: Sat, 20 Feb 2016 17:12:39 GMT
+recorded_with: VCR 2.9.3
