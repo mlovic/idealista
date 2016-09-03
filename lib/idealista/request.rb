@@ -11,11 +11,27 @@ module Idealista
     end
 
     def perform
-      uri = URI.parse(BASE_URL)
-      uri.query = URI.encode_www_form(@query)
-      response = Net::HTTP.get_response(uri)
-      #data = JSON.parse(response.body).rubify_keys
+      request_with_redirects(BASE_URL, @query)
     end
-  end
+     
+    private
 
+      def request_with_redirects(base, query)
+        uri = build_uri(base, query)
+        #puts "Fetching #{uri}"
+        response = Net::HTTP.get_response(uri)
+        if (response.code == "301" or response.code == "302")
+          #puts "Redirecting to ... #{response.header['location']}"
+          request_with_redirects(response.header['location'], query)
+        else
+          response
+        end
+      end
+
+      def build_uri(base, query)
+        uri = URI.parse(base)
+        uri.query = URI.encode_www_form(query)
+        uri
+      end
+  end
 end

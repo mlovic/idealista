@@ -17,4 +17,11 @@ RSpec.describe Idealista::Request, "#perform" do
   it "response has body with correct string" do
     expect(response.body).to include "chueca"
   end
+
+  it "handles redirects" do
+    request = Idealista::Request.new({operation: "A", property_type: "bedrooms", center: "40.42,-3.69", distance: 100}, Secret::API_KEY)
+    expect(Net::HTTP).to receive(:get_response).twice.and_call_original
+    response = VCR.use_cassette("redirect") { request.perform } 
+    expect(response.code).to eq '200'
+  end
 end
