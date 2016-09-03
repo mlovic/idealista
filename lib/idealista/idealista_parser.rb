@@ -21,6 +21,8 @@ module Idealista
 
       def response_body
         @response_body ||= JSON.parse(@response.body).rubify_keys!
+      rescue JSON::ParserError => e
+        raise $!, "Error parsing response body (#{$!})\nResponse body:\n#{@response.body}\n", $!.backtrace
       end
 
       def get_error(body)

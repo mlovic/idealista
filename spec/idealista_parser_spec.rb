@@ -19,6 +19,16 @@ RSpec.describe Idealista::IdealistaParser, '#results' do
       expect(response.results).to eq nil
     end
   end
+
+  context 'when response is not json' do
+    it 'raises error' do
+      http_response = double("http_response")
+      allow(http_response).to receive(:body) { "<!DOCTYPE html>\n<html>\n<head>" }
+      response = Idealista::IdealistaParser.new(http_response)
+
+      expect{ response.results }.to raise_error(/asdf<html>/)
+    end
+  end
 end
 
 RSpec.describe Idealista::IdealistaParser, '#error' do
